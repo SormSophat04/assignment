@@ -1,3 +1,4 @@
+import 'package:ass_midterm_one/controller/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,11 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   final _userlController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _userlController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+  final AuthService authService = AuthService();
+
+  void signIn() {
+    authService.signIn(email: _userlController.text.trim(), password: _passwordController.text.trim());
+  }
+
+  void signInWithGoogle() {
+    authService.SignInWithGoogle();
   }
 
   @override
@@ -47,9 +51,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 26, left: 10),
-                    child: SvgPicture.asset(
-                      "assets/icons/logo.svg",
-                      width: 120,
+                    child: Hero(
+                      tag: "logo",
+                      child: SvgPicture.asset(
+                        "assets/icons/logo.svg",
+                        width: 120,
+                      ),
                     ),
                   ),
                 ],
@@ -165,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: TextButton(
-                        onPressed: () => Navigator,
+                        onPressed: signInWithGoogle,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -200,15 +207,6 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     )
                   ],
-                ),
-              ),
-              const SizedBox(height: 240),
-              const SizedBox(
-                width: 185,
-                height: 80,
-                child: Text(
-                  "Join our new beta program to test\n    our new experimental feature ",
-                  style: TextStyle(fontFamily: "inter", fontSize: 11),
                 ),
               ),
             ],
