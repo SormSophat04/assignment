@@ -1,7 +1,8 @@
-import 'package:ass_midterm_one/views/home_page.dart';
 import 'package:ass_midterm_one/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'home_page copy.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});

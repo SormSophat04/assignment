@@ -49,7 +49,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     const SizedBox(height: 15),
                     //Username================================================
-                    Image.asset("assets/images/Profile.png"),
+                    Image.asset("assets/images/users.png"),
                     const SizedBox(height: 20),
                     Container(
                       width: 350,
