@@ -10,35 +10,50 @@ class AuthService {
       {required String email,
       required String password,
       required String userName}) async {
-    final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     //add acc to auth
-    await _auth.createUserWithEmailAndPassword(
+    await auth.createUserWithEmailAndPassword(
         email: email, password: password);
     //add acc to store based on auth.uid as doc.id//
-    await _firestore
+    await firestore
         .collection("users")
-        .doc(_auth.currentUser?.uid)
+        .doc(auth.currentUser?.uid)
         .set({"email": email, "userName": userName});
   }
 
   Future<void> signIn({required String email, required String password}) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      await auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
       log("error: ${e.message.toString()}");
     }
   }
 
   Future<void> logOut() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-    await _auth.signOut();
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.signOut();
   }
 
   Future<void> SignInWithGoogle() async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     final GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
-    await _auth.signInWithProvider(googleAuthProvider);
+    await auth.signInWithProvider(googleAuthProvider);
+  }
+
+  Future<String> getUserName() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    String uid = auth.currentUser!.uid;
+    DocumentSnapshot userNameSnapshot =
+        await firestore.collection("users").doc(uid).get();
+    if (!userNameSnapshot.exists) {
+      return "USERNAME";
+    } else {
+      final userName = userNameSnapshot.get("userName");
+      return userName;
+    }
   }
 }

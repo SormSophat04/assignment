@@ -14,10 +14,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final authservice = AuthService();
+  final authService = AuthService();
+
+  String userName = "USERNAME";
+
+  void fetchUserName() async {
+    String fetchUserName = await authService.getUserName();
+    setState(() {
+      fetchUserName = userName;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void logOut() {
-    authservice.logOut();
+    authService.logOut();
   }
 
   @override
@@ -43,14 +57,14 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Column(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "Hello Varun,",
-                          style: TextStyle(fontSize: 26),
+                     Text(
+                          "Hello $userName,",
+                          style: const TextStyle(fontSize: 26),
                         ),
-                        Text(
+                        const Text(
                           "You have work today",
                           style: TextStyle(
                               fontFamily: "inter", color: Colors.grey),

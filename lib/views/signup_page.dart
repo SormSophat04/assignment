@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:ass_midterm_one/controller/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,6 +13,25 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+
+  final AuthService _authService = AuthService();
+
+  final userNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+  final conPassController = TextEditingController();
+
+  void signUp() {
+    log("click");
+    if(passController.text.trim() == conPassController.text.trim() && userNameController.text.isNotEmpty && emailController.text.isNotEmpty && passController.text.isNotEmpty) {
+      log("condition true");
+      _authService.signUp(email: emailController.text, password: passController.text, userName: userNameController.text);
+    } else {
+      log("condition false");
+    }
+    log("pass here");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,10 +82,11 @@ class _SignupPageState extends State<SignupPage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: userNameController,
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Username",
                             hintStyle: TextStyle(
@@ -88,10 +111,11 @@ class _SignupPageState extends State<SignupPage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
-                          decoration: InputDecoration(
+                          controller: emailController,
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Email",
                             hintStyle: TextStyle(
@@ -115,11 +139,12 @@ class _SignupPageState extends State<SignupPage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child:  Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
+                          controller: passController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Password",
                             hintStyle: TextStyle(
@@ -143,11 +168,12 @@ class _SignupPageState extends State<SignupPage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
+                          controller: conPassController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: "Comfirm Password",
                             hintStyle: TextStyle(
@@ -174,7 +200,7 @@ class _SignupPageState extends State<SignupPage> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: TextButton(
-                        onPressed: () => Navigator,
+                        onPressed: signUp,
                         child: const Text(
                           "Sign Up",
                           style: TextStyle(color: Colors.white),
