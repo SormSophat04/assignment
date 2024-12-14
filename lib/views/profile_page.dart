@@ -1,4 +1,7 @@
+import 'package:ass_midterm_one/controller/auth_service.dart';
 import 'package:ass_midterm_one/views/auth/auth_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -12,6 +15,32 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final AuthService _authService = AuthService();
+
+  final emailController = TextEditingController();
+  final phoneController = TextEditingController();
+
+  String userName = "USERNAME";
+  String userEmail = "USER-EMAIL";
+
+  void fetchUser() async {
+    String email = _auth.currentUser!.email.toString();
+    String name = await _authService.getUserName();
+    setState(() {
+      userName = name;
+      userEmail = email;
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetchUser();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,24 +115,25 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
+                          controller: emailController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "example@gmail.com",
-                            hintStyle: TextStyle(
+                            hintText: userEmail,
+                            hintStyle: const TextStyle(
                               color: Colors.black54,
                               fontFamily: "inter",
                               fontSize: 15,
                             ),
-                            icon: Icon(Icons.edit),
+                            icon: const Icon(Icons.edit),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 35),
-                    const Text("Phone"),
+                    const Text("User Name"),
                     const SizedBox(height: 5),
                     Container(
                       width: 350,
@@ -116,17 +146,18 @@ class _ProfilePageState extends State<ProfilePage> {
                         color: Colors.white.withOpacity(0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.only(left: 15, bottom: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 15, bottom: 5),
                         child: TextField(
+                          controller: phoneController,
                           decoration: InputDecoration(
                             border: InputBorder.none,
-                            hintText: "(+855) xxx-xxx-xxx",
-                            hintStyle: TextStyle(
+                            hintText: userName,
+                            hintStyle: const TextStyle(
                                 color: Colors.black54,
                                 fontFamily: "inter",
                                 fontSize: 15),
-                            icon: Icon(Icons.edit),
+                            icon: const Icon(Icons.edit),
                           ),
                         ),
                       ),

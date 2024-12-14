@@ -1,7 +1,13 @@
+import 'dart:developer';
+
+import 'package:ass_midterm_one/components/task_widget.dart';
+import 'package:ass_midterm_one/controller/task_service.dart';
 import 'package:ass_midterm_one/views/create_task_page.dart';
 import 'package:ass_midterm_one/views/profile_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../controller/auth_service.dart';
@@ -15,19 +21,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final authService = AuthService();
+  final taskService = TaskService();
 
-  String userName = "USERNAME";
+  String userName = "Dear";
 
   void fetchUserName() async {
     String fetchUserName = await authService.getUserName();
     setState(() {
-      fetchUserName = userName;
+      userName = fetchUserName;
     });
   }
 
   @override
   void initState() {
     super.initState();
+    fetchUserName();
   }
 
   void logOut() {
@@ -60,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                     Text(
+                        Text(
                           "Hello $userName,",
                           style: const TextStyle(fontSize: 26),
                         ),
@@ -96,26 +104,62 @@ class _HomePageState extends State<HomePage> {
             //Category=====================================
             Container(
               width: double.infinity,
-              height: 300,
-              color: Colors.amber,
-              child: const Center(
-                child: Text("category"),
-              ),
-            ),
-
-            //Tasks=========================================
-            SingleChildScrollView(
-              child: Container(
-                width: double.infinity,
-                height: 460,
-                color: Colors.blue,
-                child: const Center(
-                  child: Text("task"),
+              height: 250,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Center(
+                child: GridView(
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 2.2,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: Colors.deepPurple.withOpacity(0.5),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: Colors.greenAccent.withOpacity(0.5),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: Colors.purpleAccent.withOpacity(0.5),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(24),
+                        color: Colors.orangeAccent.withOpacity(0.5),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),
 
-            //Button create new tasks==============================
+            //Tasks=========================================
+            SizedBox(
+              height: 200,
+              child: StreamBuilder(
+                  stream: taskService.taskStreamer(),
+                  builder: (context, snapshot) {
+                    List<QueryDocumentSnapshot<Map<String , dynamic>>> items =  snapshot.data!.toList();
+                    return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                        itemBuilder: (context, index) => TaskWidget(name: items[index].get("name"),),
+                    );
+                  },
+              ),
+            ),
+
+            // Button create new tasks==============================
             const SizedBox(height: 12),
             GestureDetector(
               onTap: () => Navigator.push(
