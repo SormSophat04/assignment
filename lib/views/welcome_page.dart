@@ -25,23 +25,6 @@ class WelcomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: [
-                  //     SvgPicture.asset(
-                  //       "assets/icons/Group.svg",
-                  //       width: 35,
-                  //     ),
-                  //     const SizedBox(width: 14),
-                  //     const Text(
-                  //       "TodoHive",
-                  //       style: TextStyle(
-                  //         fontSize: 40,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-
                   SvgPicture.asset("assets/icons/logo.svg"),
                   const Text(
                     "Innovative, user-friendly,\n            and easy.",
