@@ -1,3 +1,5 @@
+import 'package:ass_midterm_one/views/auth/auth_page.dart';
+import 'package:ass_midterm_one/views/login_page.dart';
 import 'package:ass_midterm_one/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -137,7 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onTap: () => Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const WelcomePage(),
+                                builder: (context) => const AuthPage(),
                               )),
                           child: Container(
                             width: 140,

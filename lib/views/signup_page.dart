@@ -36,10 +36,10 @@ class _SignupPageState extends State<SignupPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 120),
+              const SizedBox(height: 100),
               Container(
                 width: double.infinity,
-                height: 600,
+                height: 650,
                 // color: Colors.amber,
                 child: Column(
                   children: [
@@ -47,10 +47,8 @@ class _SignupPageState extends State<SignupPage> {
                       "Sign Up",
                       style: TextStyle(fontSize: 22),
                     ),
-                    const SizedBox(height: 15),
                     //Username================================================
-                    Image.asset("assets/images/users.png"),
-                    const SizedBox(height: 20),
+                    Image.asset("assets/images/users.png", width: 200),
                     Container(
                       width: 350,
                       height: 42,

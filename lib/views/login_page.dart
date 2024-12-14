@@ -18,7 +18,9 @@ class _LoginPageState extends State<LoginPage> {
   final AuthService authService = AuthService();
 
   void signIn() {
-    authService.signIn(email: _userlController.text.trim(), password: _passwordController.text.trim());
+    authService.signIn(
+        email: _userlController.text.trim(),
+        password: _passwordController.text.trim());
   }
 
   void signInWithGoogle() {
@@ -61,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 250),
+              const SizedBox(height: 285),
               Container(
                 width: double.infinity,
                 height: 350,
@@ -205,8 +207,17 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         )
                       ],
-                    )
+                    ),
                   ],
+                ),
+              ),
+              const SizedBox(height: 235),
+              const SizedBox(
+                width: 185,
+                height: 80,
+                child: Text(
+                  "Join our new beta program to test\n    our new experimental feature ",
+                  style: TextStyle(fontFamily: "inter", fontSize: 11),
                 ),
               ),
             ],
