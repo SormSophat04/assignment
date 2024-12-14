@@ -1,10 +1,8 @@
 import 'package:ass_midterm_one/views/auth/auth_page.dart';
-import 'package:ass_midterm_one/views/login_page.dart';
-import 'package:ass_midterm_one/views/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'home_page copy.dart';
+import 'home_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -51,9 +49,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                     ],
                   ),
-                  Image.asset(
-                    "assets/images/users.png",
-                    width: 200,
+                  const Hero(
+                    tag: "users_tag",
+                    child: Image(image: AssetImage(
+                      "assets/images/users.png",
+                    ),width: 200,),
                   ),
                   const Text(
                     "Varun Cupta",
@@ -62,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               height: 480,
               child: Padding(

@@ -64,11 +64,14 @@ class _HomePageState extends State<HomePage> {
                           builder: (context) => const ProfilePage(),
                         ),
                       ),
-                      child: const Image(
-                        image: AssetImage(
-                          "assets/images/users.png",
+                      child: const Hero(
+                        tag: "users_tag",
+                        child: Image(
+                          image: AssetImage(
+                            "assets/images/users.png",
+                          ),
+                          width: 100,
                         ),
-                        width: 100,
                       ),
                     ),
                   ],
@@ -86,7 +89,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
 
-            //Tasks=============================================
+            //Tasks=========================================
             SingleChildScrollView(
               child: Container(
                 width: double.infinity,
