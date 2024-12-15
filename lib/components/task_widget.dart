@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TaskWidget extends StatefulWidget {
   final bool done;
   final String name;
-  const TaskWidget({super.key , required this.name , required this.done});
+  const TaskWidget({super.key, required this.name, required this.done});
 
   @override
   State<TaskWidget> createState() => _TaskWidgetState();
@@ -12,30 +12,59 @@ class TaskWidget extends StatefulWidget {
 class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      curve: Easing.linear,
+      duration: Duration(milliseconds: 800),
       alignment: Alignment.center,
-        width: double.infinity,
-        height: 100,
-      margin: EdgeInsets.all(20),
+      width: double.infinity,
+      height: 100,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       padding: EdgeInsets.symmetric(horizontal: 20),
       decoration: BoxDecoration(
-        border: Border.all(width: 1 , color: Colors.grey.withOpacity(0.5)),
-        color: Theme.of(context).colorScheme.surfaceContainer,
-        borderRadius: BorderRadius.circular(24)
-      ),
+          border: Border.all(width: 1, color: Colors.grey.withOpacity(0.5)),
+          color: widget.done
+              ? Colors.greenAccent.shade700.withOpacity(0.2)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(24)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: const EdgeInsets.all(5),
+          Expanded(
+            flex: 1,
+            child: AnimatedContainer(
+              alignment: Alignment.center,
+              duration: Duration(milliseconds: 400),
+              padding: const EdgeInsets.all(10),
+              margin: EdgeInsets.all(3),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: widget.done ? Colors.lightGreen.withOpacity(0.5) : Colors.grey,
+                color: widget.done
+                    ? Colors.greenAccent.withOpacity(0.5)
+                    : Colors.transparent,
               ),
-              child: Icon(widget.done ? Icons.check_circle_outline_rounded : Icons.circle_outlined)),
-          Column(
-            children: [
-              Text(widget.name)
-            ],
+              child: Icon(
+                widget.done
+                    ? Icons.check_circle_rounded
+                    : Icons.circle_outlined,
+                color: widget.done ? Colors.green : Colors.grey,
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Column(
+              children: [Text(widget.name)],
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(Icons.mode_edit_outline_outlined , color: Colors.grey.withOpacity(0.8),),
+                Icon(Icons.delete_outline_rounded , color: Colors.redAccent.withOpacity(0.8),weight: 0.5,)
+              ],
+            ),
           )
         ],
       ),

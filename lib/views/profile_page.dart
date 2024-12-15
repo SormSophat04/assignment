@@ -34,6 +34,11 @@ class _ProfilePageState extends State<ProfilePage> {
     });
   }
 
+  void signOut() {
+    _authService.logOut();
+    Navigator.pop(context);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -63,11 +68,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       // Icon(Icons.arrow_left),
                       GestureDetector(
-                        onTap: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomePage(),
-                            )),
+                        onTap: () => Navigator.pop(context),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 28, bottom: 20),
                           child: SvgPicture.asset(
@@ -167,11 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GestureDetector(
-                          onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AuthPage(),
-                              )),
+                          onTap: signOut,
                           child: Container(
                             width: 140,
                             height: 50,
