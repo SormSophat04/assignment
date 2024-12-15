@@ -1,3 +1,4 @@
+import 'package:ass_midterm_one/views/edit_task_page.dart';
 import 'package:flutter/material.dart';
 
 class TaskWidget extends StatefulWidget {
@@ -61,7 +62,11 @@ class _TaskWidgetState extends State<TaskWidget> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Icon(Icons.mode_edit_outline_outlined , color: Colors.grey.withOpacity(0.8),),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => EditTaskScreen(),));
+                    },
+                    child: Icon(Icons.mode_edit_outline_outlined , color: Colors.grey.withOpacity(0.8),)),
                 Icon(Icons.delete_outline_rounded , color: Colors.redAccent.withOpacity(0.8),weight: 0.5,)
               ],
             ),

@@ -54,72 +54,21 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Container(
-            //   width: double.infinity,
-            //   height: 100,
-            //   decoration: const BoxDecoration(
-            //     // color: Colors.amber,
-            //     image: DecorationImage(
-            //       alignment: Alignment(-1, 0),
-            //       fit: BoxFit.fitHeight,
-            //       image: AssetImage("assets/icons/bgf.png"),
-            //     ),
-            //   ),
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(left: 30, right: 15),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           children: [
-            //             Text(
-            //               "Hello $userName,",
-            //               style: const TextStyle(fontSize: 26),
-            //             ),
-            //             const Text(
-            //               "You have work today",
-            //               style: TextStyle(
-            //                   fontFamily: "inter", color: Colors.grey),
-            //             ),
-            //           ],
-            //         ),
-            //         GestureDetector(
-            //           onTap: () => Navigator.push(
-            //             context,
-            //             MaterialPageRoute(
-            //               builder: (context) => const ProfilePage(),
-            //             ),
-            //           ),
-            //           child: const Hero(
-            //             tag: "users_tag",
-            //             child: Image(
-            //               image: AssetImage(
-            //                 "assets/images/users.png",
-            //               ),
-            //               width: 100,
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-
             //Category=====================================
             Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.width/1.5 + AppBar().preferredSize.height + 20,
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              height: MediaQuery.of(context).size.width / 1.2 +
+                  AppBar().preferredSize.height,
+
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Center(
                 child: GridView(
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1.5,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1.5,
+                      crossAxisSpacing: 20,
+                      mainAxisSpacing: 20),
                   children: [
                     Container(
                       padding: const EdgeInsets.all(20),
@@ -136,9 +85,9 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white.withOpacity(0.5)),
-                            child: Icon(
+                            child: const Icon(
                               Icons.folder_copy_outlined,
-                              color: Colors.deepPurple.withOpacity(0.5),
+                              color: Colors.deepPurple,
                             ),
                           ),
                           const Row(
@@ -149,23 +98,86 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Container(
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        color: Colors.greenAccent.withOpacity(0.5),
+                        color: Colors.greenAccent.shade200.withOpacity(0.5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.5)),
+                            child: Icon(
+                              Icons.book_outlined,
+                              color: Colors.greenAccent.shade700,
+                            ),
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text("Education"), Text("9")],
+                          )
+                        ],
                       ),
                     ),
                     Container(
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        color: Colors.purpleAccent.withOpacity(0.5),
+                        color: Colors.purpleAccent.shade100.withOpacity(0.5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.5)),
+                            child: Icon(
+                              Icons.car_repair_outlined,
+                              color: Colors.purpleAccent.shade700,
+                            ),
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text("Work"), Text("9")],
+                          )
+                        ],
                       ),
                     ),
                     Container(
+                      padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        color: Colors.orangeAccent.withOpacity(0.5),
+                        color: Colors.orangeAccent.shade100.withOpacity(0.5),
                       ),
-                    )
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.5)),
+                            child: Icon(
+                              Icons.shopping_bag_outlined,
+                              color: Colors.amber.shade600,
+                            ),
+                          ),
+                          const Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text("All tasks"), Text("9")],
+                          )
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -194,27 +206,39 @@ class _HomePageState extends State<HomePage> {
                 }
                 return Column(
                   children: List.generate(
-                    items.length,
-                    (index) => Slidable(
-                        startActionPane: ActionPane(
-                          motion: DrawerMotion(),
-                          children: [
-                            SlidableAction(
-                              label:items[index].get("done") ? "Remove" : "complete" ,
-                              foregroundColor: items[index].get("done") ? Colors.redAccent : Colors.greenAccent[700],
-                              backgroundColor: items[index].get("done") ? Colors.redAccent.withOpacity(0.2) : Colors.greenAccent.withOpacity(0.2),
-                              icon: items[index].get("done")
-                                  ? Icons.remove_circle_outline_rounded
-                                  : Icons.check_rounded,
-                              onPressed: (BuildContext context) {},
-                            )
-                          ],
-                        ),
-                        child: TaskWidget(
-                          name: items[index].get("name"),
-                          done: items[index].get("done"),
-                        )),
-                  ) + [Slidable(child: SizedBox(height: 100,))],
+                        items.length,
+                        (index) => Slidable(
+                            startActionPane: ActionPane(
+                              motion: const DrawerMotion(),
+                              children: [
+                                SlidableAction(
+                                  label: items[index].get("done")
+                                      ? "Remove"
+                                      : "Complete",
+                                  foregroundColor: items[index].get("done")
+                                      ? Colors.redAccent
+                                      : Colors.greenAccent[700],
+                                  backgroundColor: items[index].get("done")
+                                      ? Colors.redAccent.withOpacity(0.2)
+                                      : Colors.greenAccent.withOpacity(0.2),
+                                  icon: items[index].get("done")
+                                      ? Icons.remove_circle_outline_rounded
+                                      : Icons.check_rounded,
+                                  onPressed: (BuildContext context) {},
+                                )
+                              ],
+                            ),
+                            child: TaskWidget(
+                              name: items[index].get("name"),
+                              done: items[index].get("done"),
+                            )),
+                      ) +
+                      [
+                        const Slidable(
+                            child: SizedBox(
+                          height: 100,
+                        ))
+                      ],
                 );
                 // );
               },
@@ -226,23 +250,24 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: GestureDetector(
         onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const CreateTaskPage(),
-            )),
+          context,
+          MaterialPageRoute(
+            builder: (context) => const CreateTaskPage(),
+          ),
+        ),
         child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 30 , vertical: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
           width: 400,
-          height: 65,
+          height: 60,
           decoration: BoxDecoration(
-            border: Border.all(color:Color(0xFF9747FF) ),
+            border: Border.all(color: const Color(0xFF9747FF)),
             borderRadius: BorderRadius.circular(12),
             color: const Color(0xFF9747FF).withOpacity(0.5),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaY: 10 , sigmaX: 10),
+              filter: ImageFilter.blur(sigmaY: 10, sigmaX: 10),
               child: const Center(
                 child: Text(
                   "Create new task",
