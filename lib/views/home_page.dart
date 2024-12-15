@@ -116,9 +116,30 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSpacing: 20),
                   children: [
                     Container(
+                      padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(24),
-                        color: Colors.deepPurple.withOpacity(0.5),
+                        color: Colors.blueAccent.shade200.withOpacity(0.5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.5)),
+                            child: Icon(
+                              Icons.folder_copy_outlined,
+                              color: Colors.deepPurple.withOpacity(0.5),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [Text("Project"), Text("9")],
+                          )
+                        ],
                       ),
                     ),
                     Container(
@@ -145,18 +166,23 @@ class _HomePageState extends State<HomePage> {
             ),
 
             //Tasks=========================================
-            SizedBox(
-              height: 200,
-              child: StreamBuilder(
-                  stream: taskService.taskStreamer(),
-                  builder: (context, snapshot) {
-                    List<QueryDocumentSnapshot<Map<String , dynamic>>> items =  snapshot.data!.toList();
-                    return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                        itemBuilder: (context, index) => TaskWidget(name: items[index].get("name"),),
-                    );
-                  },
-              ),
+            StreamBuilder(
+              stream: taskService.taskStreamer(),
+              builder: (context, snapshot) {
+                List<QueryDocumentSnapshot<Map<String, dynamic>>> items =
+                    snapshot.data!.toList();
+                return Column(
+                  children: List.generate(items.length,
+                  (index) => TaskWidget(name: items[index].get("name") , done: items[index].get("done"),),
+                  ),
+                );
+                //   ListView.builder(
+                //   itemCount: snapshot.data!.length,
+                //   itemBuilder: (context, index) => TaskWidget(
+                //     name: items[index].get("name"),
+                //   ),
+                // );
+              },
             ),
 
             // Button create new tasks==============================
