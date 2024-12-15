@@ -85,8 +85,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       "assets/images/users.png",
                     ),width: 200,),
                   ),
-                  const Text(
-                    "Varun Cupta",
+                  Text(
+                    "$userName",
                     style: TextStyle(fontSize: 26),
                   )
                 ],
